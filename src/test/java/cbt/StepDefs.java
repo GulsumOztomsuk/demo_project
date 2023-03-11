@@ -1,6 +1,5 @@
-package cbt.StepDefs;
+package cbt;
 
-import cbt.Driver.Driver;
 import io.cucumber.java.After;
 import io.cucumber.java.Scenario;
 import io.cucumber.java.en.Given;
@@ -12,13 +11,14 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class StepDefs {
 
     @Given("^I am on the home page$")
     public void i_am_on_the_home_page() throws Throwable {
-        Driver.getDriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        Driver.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         Driver.getDriver().manage().window().maximize();
         Driver.getDriver().get("http://etsy.com");
 
@@ -43,7 +43,7 @@ public class StepDefs {
     public void tearDown(Scenario scenario) {
         if (scenario.isFailed()) {
             final byte[] screenshot = ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
-            scenario.embed(screenshot, "image/png", scenario.getName());
+            scenario.attach(screenshot, "image/png", scenario.getName());
         }
         Driver.closeDriver();
     }

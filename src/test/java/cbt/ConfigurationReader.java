@@ -1,4 +1,4 @@
-package cbt.CofigurationReader;
+package cbt;
 
 import java.io.FileInputStream;
 import java.util.Properties;
